@@ -10,7 +10,7 @@ function getDaysAgo({ createdAt }: { createdAt: string }) {
     const years = Math.floor(daysAgo / 365);
     return `${years} year${years > 1 ? "s" : ""} ago`;
   }
-  if (daysAgo < 365) {
+  if (daysAgo >= 30) {
     const months = Math.floor(daysAgo / 30);
     return `${months} month${months > 1 ? "s" : ""} ago`;
   }
