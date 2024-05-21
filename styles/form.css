@@ -109,11 +109,11 @@
   display: block;
 }
 
-.loginForm .loginButton {
+.loginForm .submitButton {
   width: 100%;
 }
 
-.loginForm .loginButton {
+.loginForm .submitButton {
   margin: 30px 0 0;
 }
 

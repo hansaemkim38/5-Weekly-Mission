@@ -14,9 +14,10 @@ import AuthIconButton from "@/src/components/AuthIconButton/AuthIconButton";
 import { useAuthGuard } from "@/src/hooks/useAuthGuard";
 
 const SignInForm = () => {
-  useAuthGuard();
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
+
+  useAuthGuard();
 
   const {
     register,
@@ -75,7 +76,7 @@ const SignInForm = () => {
         </div>
         {errors.password && <div className={styles.loginCaution}>{errors.password.message}</div>}
       </div>
-      <button className="loginButton widthFull btnForm01" type="submit">
+      <button className="submitButton widthFull btnForm01" type="submit">
         로그인
       </button>
       <SocialLogin />

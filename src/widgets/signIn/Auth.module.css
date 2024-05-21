@@ -43,7 +43,7 @@
   width: 25rem;
 }
 
-.loginForm .loginButton {
+.loginForm .submitButton {
   margin: 1.875rem 0 0;
 }
 
@@ -71,7 +71,7 @@
     padding: 7.5rem 2rem;
   }
 
-  .loginForm .loginButton {
+  .loginForm .submitButton {
     font-size: 1.125rem;
     padding: 1rem 0;
   }

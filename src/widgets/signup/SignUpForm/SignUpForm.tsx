@@ -117,7 +117,7 @@ const SignUpForm = () => {
           <div className={styles.loginCaution}>{errors.confirmPassword.message}</div>
         )}
       </div>
-      <button className="loginButton widthFull btnForm01" type="submit">
+      <button className="submitButton widthFull btnForm01" type="submit">
         로그인
       </button>
       <SocialLogin />
