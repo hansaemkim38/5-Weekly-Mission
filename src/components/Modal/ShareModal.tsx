@@ -8,7 +8,7 @@ import { RenderModalType } from "./Modal";
 import ModalContext from "./ModalContext";
 
 function ShareModal({ folderTabName }: Partial<RenderModalType>) {
-  const { forderDataId } = useContext(ModalContext)!;
+  const { folderDataId } = useContext(ModalContext)!;
 
   useEffect(() => {
     const { Kakao } = window;
@@ -18,9 +18,9 @@ function ShareModal({ folderTabName }: Partial<RenderModalType>) {
   }, []);
 
   // 카카오톡 공유
-  let BASE_URL = `http://localhost:3000/shared/${forderDataId}`;
+  let BASE_URL = `http://localhost:3000/shared/${folderDataId}`;
 
-  if (forderDataId === 0) {
+  if (folderDataId === 0) {
     BASE_URL = `http://localhost:3000/shared`;
   }
 
@@ -63,7 +63,7 @@ function ShareModal({ folderTabName }: Partial<RenderModalType>) {
     <div className={styles.modalForm1}>
       <h2>폴더 공유</h2>
       <div className={styles.conWrap}>
-        <div className={styles.folderLinkWrap}>{forderDataId === 0 ? "전체" : folderTabName}</div>
+        <div className={styles.folderLinkWrap}>{folderDataId === 0 ? "전체" : folderTabName}</div>
         <ul className={styles.folderShareWrap}>
           <li>
             <button onClick={() => shareButton()}>

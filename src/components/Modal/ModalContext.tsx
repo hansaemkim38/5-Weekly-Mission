@@ -6,7 +6,7 @@ interface ModalContextValue {
   setCardUrl: (url: string) => void;
   isOpen: boolean;
   closeModal: () => void;
-  forderDataId: number;
+  folderDataId: number;
 }
 
 const ModalContext = createContext<ModalContextValue | undefined>(undefined);

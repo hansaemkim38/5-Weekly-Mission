@@ -18,12 +18,12 @@ interface UserFolderdataList {
   imageSource?: string;
 }
 
-interface FolderTabListInterface {
+interface IFolderTabList {
   folderTabDataList: FolderTabDataList[];
-  forderDataId: number;
+  folderDataId: number;
   setUserFolderDataList: (data: UserFolderdataList[]) => void;
   setFolderTabName: (name: string | null) => void;
-  setForderDataId: (id: number) => void;
+  setFolderDataId: (id: number) => void;
 }
 
 interface FolderData {
