@@ -4,6 +4,17 @@ const instance = axios.create({
   baseURL: "https://bootcamp-api.codeit.kr",
 });
 
+instance.interceptors.request.use((configOrigin) => {
+  const config = configOrigin;
+  const accessToken = localStorage.getItem("accessToken");
+
+  if (config.headers && accessToken !== null) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
+  }
+
+  return config;
+});
+
 instance.interceptors.response.use(
   function (config) {
     return config;
