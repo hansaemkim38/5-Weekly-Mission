@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { userFoldersTapData, userFoldersData } from "@/src/fetchUtils/index";
+import { getFolderIdLinks } from "@/src/fetchUtils/index";
 
 import Button from "./Button";
 import CardTitleIcon from "../CardTitleIcon/CardTitleIcon";
@@ -21,9 +21,9 @@ function FolderTabList({
       setName(name);
       setFolderTabName(name);
       try {
-        const response = await userFoldersTapData(id);
+        const response = await getFolderIdLinks(id);
 
-        const data = response.data;
+        const data = response.data.folder;
         setUserFolderDataList(data);
       } catch (e) {
         if (e instanceof Error) {
@@ -37,8 +37,8 @@ function FolderTabList({
   const onClickTotalButton = useCallback(async () => {
     setFolderDataId(0);
     try {
-      const response = await userFoldersData();
-      const data = response.data;
+      const response = await getFolderIdLinks();
+      const data = response.data.folder;
       setUserFolderDataList(data);
     } catch (e) {
       if (e instanceof Error) {

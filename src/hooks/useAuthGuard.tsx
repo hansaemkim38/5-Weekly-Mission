@@ -9,6 +9,7 @@ export const useAuthGuard = () => {
     if (token) {
       router.push("/folder");
     }
+    router.push("/signin");
   }, [router]);
 
   // useEffect(() => {

@@ -45,38 +45,6 @@ export const tabDataList = async () => {
   }
 };
 
-export const userFoldersData = async () => {
-  try {
-    const response = await axios.get(`/api/users/1/links`);
-    if (response.data) {
-      response.data = camelcaseKeys(response.data, { deep: true });
-    }
-    const { data } = response;
-
-    return data;
-  } catch (e) {
-    if (e instanceof Error) {
-      alert(e.message);
-    }
-  }
-};
-
-export const userFoldersTapData = async (id: number) => {
-  try {
-    const response = await axios.get(`/api/users/1/links?folderId=${id}`);
-    if (response.data) {
-      response.data = camelcaseKeys(response.data, { deep: true });
-    }
-    const { data } = response;
-
-    return data;
-  } catch (e) {
-    if (e instanceof Error) {
-      alert(e.message);
-    }
-  }
-};
-
 export const userSignInData = async (signInData: SignInFormInputs) => {
   try {
     const response = await axios.post(`/api/sign-in`, signInData);
@@ -96,6 +64,44 @@ export const checkEmailAvailability = async (email: string) => {
     const response = await axios.post(`/api/check-email`, { email });
 
     return response.data.data.isUsableNickname;
+  } catch (e) {
+    if (e instanceof Error) {
+      console.error(e.message);
+    }
+  }
+};
+
+export const getFolderIdLinks = async (folderId?: number) => {
+  try {
+    let response = await axios.get(`/api/links?folderId=${folderId}`);
+    if (!folderId) {
+      response = await axios.get(`/api/links`);
+    }
+
+    if (response.data) {
+      response.data = camelcaseKeys(response.data, { deep: true });
+    }
+    const { data } = response;
+
+    return data;
+  } catch (e) {
+    if (e instanceof Error) {
+      console.error(e.message);
+    }
+  }
+};
+
+export const getFolderUserData = async () => {
+  try {
+    const response = await axios.get(`/api/users`);
+    console.log(response);
+
+    if (response.data) {
+      response.data = camelcaseKeys(response.data, { deep: true });
+    }
+    const { data } = response;
+
+    return data;
   } catch (e) {
     if (e instanceof Error) {
       console.error(e.message);

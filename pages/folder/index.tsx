@@ -1,7 +1,7 @@
 import Search from "@/src/components/Search/Search";
 import React, { useEffect, useState } from "react";
 import AddLinkForm from "@/src/components/AddLinkForm/AddLinkForm";
-import { tabDataList, userFoldersData } from "@/src/fetchUtils/index";
+import { getFolderIdLinks, tabDataList } from "@/src/fetchUtils/index";
 import FolderTabList from "@/src/components/FolderTabList/FolderTabList";
 import CardList from "@/src/components/CardList/CardList";
 import useModal from "@/src/hooks/useModal";
@@ -24,7 +24,7 @@ function Folder() {
   useEffect(() => {
     async function fetchDataAndSetState() {
       const folderTabDataListPromise = tabDataList();
-      const userFolderDataListPromise = userFoldersData();
+      const userFolderDataListPromise = getFolderIdLinks();
 
       const [folderTabDataList, userFolderDataList] = await Promise.all([
         folderTabDataListPromise,
@@ -32,7 +32,7 @@ function Folder() {
       ]);
 
       setFolderTabDataList(folderTabDataList.data);
-      setUserFolderDataList(userFolderDataList.data);
+      setUserFolderDataList(userFolderDataList.data.folder);
     }
     fetchDataAndSetState();
   }, []);
