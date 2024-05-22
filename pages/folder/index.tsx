@@ -20,6 +20,7 @@ function Folder() {
   const [folderTabName, setFolderTabName] = useState<string | null>("");
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   const [folderDataId, setFolderDataId] = useState<number>(0);
+  const [name, setName] = useState<string>("");
 
   useEffect(() => {
     async function fetchDataAndSetState() {
@@ -63,6 +64,8 @@ function Folder() {
               setFolderTabName={setFolderTabName}
               folderDataId={folderDataId}
               setFolderDataId={setFolderDataId}
+              name={name}
+              setName={setName}
             />
             <CardList userFolderDataList={userFolderDataList} searchInputValue={searchInputValue} />
           </div>

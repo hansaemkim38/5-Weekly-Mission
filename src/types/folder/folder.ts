@@ -24,6 +24,8 @@ interface IFolderTabList {
   setUserFolderDataList: (data: UserFolderdataList[]) => void;
   setFolderTabName: (name: string | null) => void;
   setFolderDataId: (id: number) => void;
+  name: string;
+  setName: (name: string) => void;
 }
 
 interface FolderData {

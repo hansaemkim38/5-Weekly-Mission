@@ -5,6 +5,7 @@ import Button from "./Button";
 import CardTitleIcon from "../CardTitleIcon/CardTitleIcon";
 import FolderAddButton from "./FolderAddButton";
 import styles from "@/src/components/FolderTabList/FolderTabList.module.css";
+import { useRouter } from "next/router";
 
 function FolderTabList({
   folderTabDataList,
@@ -12,8 +13,10 @@ function FolderTabList({
   setFolderTabName,
   folderDataId,
   setFolderDataId,
+  name,
+  setName,
 }: IFolderTabList) {
-  const [name, setName] = useState<string>();
+  const router = useRouter();
 
   const onClickButton = useCallback(
     async (id: number, name: string) => {
@@ -22,16 +25,16 @@ function FolderTabList({
       setFolderTabName(name);
       try {
         const response = await getFolderIdLinks(id);
-
         const data = response.data.folder;
         setUserFolderDataList(data);
+        router.push(`/folder/${id}`);
       } catch (e) {
         if (e instanceof Error) {
           alert(e.message);
         }
       }
     },
-    [setUserFolderDataList, setFolderTabName, setFolderDataId]
+    [setUserFolderDataList, setFolderTabName, setFolderDataId, router]
   );
 
   const onClickTotalButton = useCallback(async () => {
@@ -40,12 +43,13 @@ function FolderTabList({
       const response = await getFolderIdLinks();
       const data = response.data.folder;
       setUserFolderDataList(data);
+      router.push(`/folder`);
     } catch (e) {
       if (e instanceof Error) {
         alert(e.message);
       }
     }
-  }, [setUserFolderDataList]);
+  }, [setUserFolderDataList, setFolderDataId]);
   return (
     <>
       <div className={styles.tabWrap}>

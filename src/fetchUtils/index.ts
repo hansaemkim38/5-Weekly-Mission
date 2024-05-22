@@ -73,8 +73,10 @@ export const checkEmailAvailability = async (email: string) => {
 
 export const getFolderIdLinks = async (folderId?: number) => {
   try {
-    let response = await axios.get(`/api/links?folderId=${folderId}`);
-    if (!folderId) {
+    let response;
+    if (folderId) {
+      response = await axios.get(`/api/links?folderId=${folderId}`);
+    } else {
       response = await axios.get(`/api/links`);
     }
 
