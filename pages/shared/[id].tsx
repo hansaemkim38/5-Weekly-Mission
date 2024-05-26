@@ -21,8 +21,10 @@ function Shared() {
   const [folderData, setFolderData] = useState<SharedAuthData | null>(null);
   const [cardListData, setCardListData] = useState<FolderLinks[]>([]);
   const [searchInputValue, setSearchInputValue] = useState<string>("");
-  const [userId, setUserId] = useState<number>(0);
-  const [folderName, setFolderName] = useState<string>("");
+  const [folderInfo, setFolderInfo] = useState({
+    userId: 0,
+    name: "",
+  });
   const router = useRouter();
   const { id } = router.query; // folderId
 
@@ -34,8 +36,14 @@ function Shared() {
       if (response) {
         const { data } = response;
 
-        setUserId(data[0].userId);
-        setFolderName(data[0].name);
+        setFolderInfo((prev) => ({
+          ...prev,
+          userId: data[0].userId,
+        }));
+        setFolderInfo((prev) => ({
+          ...prev,
+          name: data[0].name,
+        }));
       }
     }
     fetchDataAndSetState();
@@ -45,27 +53,27 @@ function Shared() {
   useEffect(() => {
     if (!router.isReady) return;
     async function fetchDataAndSetState() {
-      const response = await getSharedFolderUserData(userId);
+      const response = await getSharedFolderUserData(folderInfo.userId);
       if (response) {
         const { data } = response;
         setFolderData(data[0]);
       }
     }
     fetchDataAndSetState();
-  }, [userId, router]);
+  }, [folderInfo.userId, router]);
 
   // 카드정보
   useEffect(() => {
     if (!router.isReady) return;
     async function fetchDataAndSetState() {
-      const response = await getSharedData(userId, Number(id));
+      const response = await getSharedData(folderInfo.userId, Number(id));
       if (response) {
         const { data } = response;
         setCardListData(data);
       }
     }
     fetchDataAndSetState();
-  }, [id, userId, router]);
+  }, [id, folderInfo.userId, router]);
 
   const onChangeValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInputValue(e.target.value);
@@ -75,7 +83,7 @@ function Shared() {
     <>
       <Header />
       <div className="content-wrap">
-        <ConHeader folderData={folderData} folderName={folderName} />
+        <ConHeader folderData={folderData} folderInfo={folderInfo} />
         <div className="wrap">
           <Search searchInputValue={searchInputValue} onChangeValue={onChangeValue} />
           <CardList cardListData={cardListData} searchInputValue={searchInputValue} />

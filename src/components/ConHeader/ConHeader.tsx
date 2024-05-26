@@ -3,10 +3,13 @@ import Image from "next/image";
 
 function ConHeader({
   folderData,
-  folderName,
+  folderInfo,
 }: {
   folderData: SharedAuthData | null;
-  folderName: string;
+  folderInfo: {
+    userId: number;
+    name: string;
+  };
 }) {
   return (
     <div className={styles.conHeaderWrap}>
@@ -16,7 +19,7 @@ function ConHeader({
         )}
         <h3 className={styles.h3}>{folderData?.name}</h3>
       </div>
-      <h2 className={styles.h2}>{folderName}</h2>
+      <h2 className={styles.h2}>{folderInfo.name}</h2>
     </div>
   );
 }
