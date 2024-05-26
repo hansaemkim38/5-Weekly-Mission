@@ -1,7 +1,7 @@
 import Search from "@/src/components/Search/Search";
 import React, { useEffect, useState } from "react";
 import AddLinkForm from "@/src/components/AddLinkForm/AddLinkForm";
-import { getFolderIdLinks, tabDataList } from "@/src/fetchUtils/index";
+import { getFolderIdLinks, getSharedFolderIdData } from "@/src/fetchUtils/index";
 import FolderTabList from "@/src/components/FolderTabList/FolderTabList";
 import CardList from "@/src/components/CardList/CardList";
 import useModal from "@/src/hooks/useModal";
@@ -10,6 +10,7 @@ import ModalContainer from "@/src/components/Modal/ModalContainer";
 import Header from "@/src/components/Header/Header";
 import Footer from "@/src/components/Footer/Footer";
 import { useRouter } from "next/router";
+import { getAccessToken } from "@/src/utils/constants";
 
 function Folder() {
   const [folderTabDataList, setFolderTabDataList] = useState<FolderTabDataList[]>([]);
@@ -27,10 +28,17 @@ function Folder() {
   const { id } = router.query;
 
   useEffect(() => {
+    const token = getAccessToken();
+    if (!token) {
+      router.push("/signin");
+    }
+  }, [router]);
+
+  useEffect(() => {
     if (!router.isReady) return;
 
     async function fetchDataAndSetState() {
-      const folderTabDataListPromise = tabDataList();
+      const folderTabDataListPromise = getSharedFolderIdData();
       const userFolderDataListPromise = getFolderIdLinks(Number(id));
 
       const [fetchedFolderTabDataList, fetchedUserFolderDataList] = await Promise.all([
@@ -38,12 +46,12 @@ function Folder() {
         userFolderDataListPromise,
       ]);
 
-      fetchedFolderTabDataList.data.filter((item: FolderTabDataList) => {
+      fetchedFolderTabDataList.data.folder.filter((item: FolderTabDataList) => {
         if (item.id === Number(id)) {
           setName(item.name);
         }
       });
-      setFolderTabDataList(fetchedFolderTabDataList.data);
+      setFolderTabDataList(fetchedFolderTabDataList.data.folder);
       setUserFolderDataList(fetchedUserFolderDataList?.data.folder);
       setFolderDataId(Number(id));
     }
@@ -56,7 +64,7 @@ function Folder() {
 
   return (
     <>
-      <Header />
+      <Header setFolderDataId={setFolderDataId} />
       <div className="content-wrap">
         <ModalContext.Provider
           value={{ isOpen, openModal, closeModal, setModalType, setCardUrl, folderDataId }}
@@ -74,8 +82,6 @@ function Folder() {
               folderTabDataList={folderTabDataList}
               setUserFolderDataList={setUserFolderDataList}
               setFolderTabName={setFolderTabName}
-              folderDataId={folderDataId}
-              setFolderDataId={setFolderDataId}
               name={name}
               setName={setName}
             />

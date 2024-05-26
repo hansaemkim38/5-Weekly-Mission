@@ -1,23 +1,6 @@
 import axios from "./axiosInstance";
 import camelcaseKeys from "camelcase-keys";
 
-export const tabDataList = async () => {
-  try {
-    const response = await axios.get(`/api/users/1/folders`);
-    if (response.data) {
-      response.data = camelcaseKeys(response.data, { deep: true });
-    }
-
-    const { data } = response;
-
-    return data;
-  } catch (e) {
-    if (e instanceof Error) {
-      alert(e.message);
-    }
-  }
-};
-
 export const userSignInData = async (signInData: SignInFormInputs) => {
   try {
     const response = await axios.post(`/api/sign-in`, signInData);
@@ -83,10 +66,15 @@ export const getFolderUserData = async () => {
   }
 };
 
-// 폴더의 정보
-export const getSharedFolderIdData = async (folderId: number) => {
+// 폴더의 정보 > id
+export const getSharedFolderIdData = async (folderId?: number) => {
   try {
-    const response = await axios.get(`/api/folders/${folderId}`);
+    let response;
+    if (folderId) {
+      response = await axios.get(`/api/folders/${folderId}`);
+    } else {
+      response = await axios.get(`api/folders`);
+    }
 
     if (response.data) {
       response.data = camelcaseKeys(response.data, { deep: true });
