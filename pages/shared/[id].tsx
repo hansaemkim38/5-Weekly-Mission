@@ -23,7 +23,7 @@ function Shared() {
   const router = useRouter();
   const { id } = router.query; // folderId
 
-  // 폴더 이름 id 세팅
+  // 폴더 이름 id 세팅.
   useEffect(() => {
     if (!router.isReady) return;
     async function fetchDataAndSetState() {
