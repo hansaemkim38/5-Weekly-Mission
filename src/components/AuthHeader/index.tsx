@@ -17,7 +17,7 @@ function AuthHeader() {
       {router.pathname === "/signin" && (
         <p>
           회원이 아니신가요?
-          <Link href="./signup" className="underline">
+          <Link href="/signup" className="underline">
             회원 가입하기
           </Link>
         </p>
@@ -25,7 +25,7 @@ function AuthHeader() {
       {router.pathname === "/signup" && (
         <p>
           이미 회원이신가요?
-          <Link href="./signin" className="underline">
+          <Link href="/signin" className="underline">
             로그인 하기
           </Link>
         </p>
