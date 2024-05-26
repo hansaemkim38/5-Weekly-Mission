@@ -12,11 +12,6 @@ import Header from "@/src/components/Header/Header";
 import Footer from "@/src/components/Footer/Footer";
 import { useRouter } from "next/router";
 
-interface FetchSharedResponse {
-  cardListData: FolderLinks[];
-  folderData: FolderData;
-}
-
 function Shared() {
   const [folderData, setFolderData] = useState<SharedAuthData | null>(null);
   const [cardListData, setCardListData] = useState<FolderLinks[]>([]);
