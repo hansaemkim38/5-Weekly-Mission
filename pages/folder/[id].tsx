@@ -33,18 +33,18 @@ function Folder() {
       const folderTabDataListPromise = tabDataList();
       const userFolderDataListPromise = getFolderIdLinks(Number(id));
 
-      const [folderTabDataList, userFolderDataList] = await Promise.all([
+      const [fetchedFolderTabDataList, fetchedUserFolderDataList] = await Promise.all([
         folderTabDataListPromise,
         userFolderDataListPromise,
       ]);
 
-      folderTabDataList.data.filter((item: FolderTabDataList) => {
+      fetchedFolderTabDataList.data.filter((item: FolderTabDataList) => {
         if (item.id === Number(id)) {
           setName(item.name);
         }
       });
-      setFolderTabDataList(folderTabDataList.data);
-      setUserFolderDataList(userFolderDataList.data.folder);
+      setFolderTabDataList(fetchedFolderTabDataList.data);
+      setUserFolderDataList(fetchedUserFolderDataList?.data.folder);
       setFolderDataId(Number(id));
     }
     fetchDataAndSetState();

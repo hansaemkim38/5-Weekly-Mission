@@ -37,13 +37,13 @@ function Folder() {
       const folderTabDataListPromise = tabDataList();
       const userFolderDataListPromise = getFolderIdLinks();
 
-      const [folderTabDataList, userFolderDataList] = await Promise.all([
+      const [fetchedFolderTabDataList, fetchedUserFolderDataList] = await Promise.all([
         folderTabDataListPromise,
         userFolderDataListPromise,
       ]);
 
-      setFolderTabDataList(folderTabDataList.data);
-      setUserFolderDataList(userFolderDataList?.data.folder);
+      setFolderTabDataList(fetchedFolderTabDataList.data);
+      setUserFolderDataList(fetchedUserFolderDataList?.data.folder);
     }
     fetchDataAndSetState();
   }, []);
