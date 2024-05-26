@@ -38,6 +38,11 @@ function Folder() {
         userFolderDataListPromise,
       ]);
 
+      folderTabDataList.data.filter((item: FolderTabDataList) => {
+        if (item.id === Number(id)) {
+          setName(item.name);
+        }
+      });
       setFolderTabDataList(folderTabDataList.data);
       setUserFolderDataList(userFolderDataList.data.folder);
       setFolderDataId(Number(id));

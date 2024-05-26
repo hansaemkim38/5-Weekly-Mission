@@ -50,3 +50,12 @@ interface FolderLinks {
   description: string;
   imageSource?: string;
 }
+
+interface SharedAuthData {
+  authId: string;
+  createdAt: string;
+  email: string;
+  id: number;
+  imageSource: string;
+  name: string;
+}
