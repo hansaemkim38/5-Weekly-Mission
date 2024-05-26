@@ -2,7 +2,7 @@ interface loginFetchData {
   id: number;
   email: string;
   name: string;
-  profileImageSource: string;
+  imageSource: string;
 }
 
 interface SignInFormInputs {

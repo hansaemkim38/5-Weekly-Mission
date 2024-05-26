@@ -1,7 +1,7 @@
 import React from "react";
 import logoImg from "../../assets/svg/Linkbrary.svg";
 import { useEffect, useState } from "react";
-import { loginFetchData } from "../../fetchUtils";
+import { getFolderUserData } from "../../fetchUtils";
 import Profile from "../Profile/Profile";
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -15,8 +15,12 @@ function Header() {
 
   useEffect(() => {
     async function fetchDataAndSetState() {
-      const { id, name, email, profileImageSource } = await loginFetchData();
-      setUser({ id, name, email, profileImageSource });
+      const getUserInfo = await getFolderUserData();
+      if (getUserInfo) {
+        const { data } = getUserInfo;
+        const { id, name, email, imageSource } = data[0];
+        setUser({ id, name, email, imageSource });
+      }
     }
     fetchDataAndSetState();
   }, []);
@@ -31,7 +35,7 @@ function Header() {
       {user ? (
         <Profile user={user} />
       ) : (
-        <Link href="/" className={`${styles.loginBtn} ${styles.btnForm01}`}>
+        <Link href="/signin" className="loginBtn btnForm01">
           로그인
         </Link>
       )}

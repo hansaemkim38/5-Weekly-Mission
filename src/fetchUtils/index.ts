@@ -1,19 +1,6 @@
 import axios from "./axiosInstance";
 import camelcaseKeys from "camelcase-keys";
 
-export const loginFetchData = async () => {
-  try {
-    const response = await axios.get(`/api/sample/user`);
-    const { data } = response;
-
-    return data;
-  } catch (e) {
-    if (e instanceof Error) {
-      alert(e.message);
-    }
-  }
-};
-
 export const tabDataList = async () => {
   try {
     const response = await axios.get(`/api/users/1/folders`);

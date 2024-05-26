@@ -16,6 +16,7 @@ const nextConfig = {
       "ssl.pstatic.net",
       "data1.pokemonkorea.co.kr",
       "jasonwatmore.com",
+      "avatars.githubusercontent.com",
     ],
   },
 };
