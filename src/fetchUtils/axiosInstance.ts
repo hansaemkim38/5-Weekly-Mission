@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getAccessToken } from "../utils/constants";
 
 const instance = axios.create({
   baseURL: "https://bootcamp-api.codeit.kr",
@@ -6,10 +7,10 @@ const instance = axios.create({
 
 instance.interceptors.request.use((configOrigin) => {
   const config = configOrigin;
-  const accessToken = localStorage.getItem("accessToken");
+  const token = getAccessToken();
 
-  if (config.headers && accessToken !== null) {
-    config.headers.Authorization = `Bearer ${accessToken}`;
+  if (config.headers && token !== null) {
+    config.headers.Authorization = `Bearer ${token}`;
   }
 
   return config;

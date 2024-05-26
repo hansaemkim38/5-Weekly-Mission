@@ -9,6 +9,8 @@ import ModalContext from "@/src/components/Modal/ModalContext";
 import ModalContainer from "@/src/components/Modal/ModalContainer";
 import Header from "@/src/components/Header/Header";
 import Footer from "@/src/components/Footer/Footer";
+import { useRouter } from "next/router";
+import { getAccessToken } from "@/src/utils/constants";
 
 function Folder() {
   const [folderTabDataList, setFolderTabDataList] = useState<FolderTabDataList[]>([]);
@@ -21,6 +23,14 @@ function Folder() {
   const [searchInputValue, setSearchInputValue] = useState<string>("");
   const [folderDataId, setFolderDataId] = useState<number>(0);
   const [name, setName] = useState<string>("");
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = getAccessToken();
+    if (!token) {
+      router.push("/signin");
+    }
+  }, [router]);
 
   useEffect(() => {
     async function fetchDataAndSetState() {
@@ -33,7 +43,7 @@ function Folder() {
       ]);
 
       setFolderTabDataList(folderTabDataList.data);
-      setUserFolderDataList(userFolderDataList.data.folder);
+      setUserFolderDataList(userFolderDataList?.data.folder);
     }
     fetchDataAndSetState();
   }, []);
