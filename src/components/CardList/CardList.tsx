@@ -47,7 +47,7 @@ function CardList({
       return cardListData.filter((card) => {
         return (
           card.title?.includes(searchValue) ||
-          card.url.includes(searchValue) ||
+          card.url?.includes(searchValue) ||
           card.description?.includes(searchValue)
         );
       });
