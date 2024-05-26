@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import logoImg from "../../assets/svg/Linkbrary.svg";
 import { useEffect, useState } from "react";
 import { getFolderUserData } from "../../fetchUtils";
@@ -8,10 +8,14 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "@/src/components/Header/Header.module.css";
 
-function Header() {
+interface setFolderDataId {
+  setFolderDataId?: Dispatch<SetStateAction<number>>;
+}
+
+function Header({ setFolderDataId }: setFolderDataId) {
   const [user, setUser] = useState<loginFetchData>();
   const location = useRouter();
-  const isFolder = location.pathname === "/folder";
+  const isFolder = location.pathname.includes("folder");
 
   useEffect(() => {
     async function fetchDataAndSetState() {
@@ -20,10 +24,11 @@ function Header() {
         const { data } = getUserInfo;
         const { id, name, email, imageSource } = data[0];
         setUser({ id, name, email, imageSource });
+        if (setFolderDataId) setFolderDataId(id);
       }
     }
     fetchDataAndSetState();
-  }, []);
+  }, [setFolderDataId]);
 
   return (
     <header className={`${styles.header} ${isFolder ? styles.headerStatic : ""}`}>
